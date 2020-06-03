@@ -4,11 +4,13 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router} from 'react-router-dom';
+import Counters from './components/Counters';
 
 
 ReactDOM.render(
   <Router>
     <App />
+    {/* <Counters /> */}
   </Router>,
   document.getElementById('root')
 );

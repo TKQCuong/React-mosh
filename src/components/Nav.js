@@ -2,13 +2,17 @@
 import React, { useState } from "react";
 import { Collapse } from "react-bootstrap";
 import $ from "jquery";
+import _ from "lodash";
 
-export default function Navibar() {
-    const [open, setOpen] = useState(false);
-
+export default function Navibar({totalCounters}) {
+  const [open, setOpen] = useState(false);
   return (
     <>
-      <Collapse className="collapse navbar-collapse custom-navmenu" id="main-navbar" in={open}>
+      <Collapse
+        className="collapse navbar-collapse custom-navmenu"
+        id="main-navbar"
+        in={open}
+      >
         <div className="container py-2 py-md-5">
           <div className="row align-items-start">
             <div className="col-md-2">
@@ -59,6 +63,7 @@ export default function Navibar() {
           <a className="navbar-brand" href="index.html">
             MyPortfolio.
           </a>
+          <span>My current order: {totalCounters}</span>
           <a
             href="#"
             className="burger"
