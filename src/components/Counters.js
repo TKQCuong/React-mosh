@@ -35,8 +35,6 @@ import _ from "lodash";
 // export default Counters;
 
 export default function Counters({counters, setCounters}) {
-  const [count, setCount] = useState(0);
-
   const handleDelete = (e) => {
     setCounters(_.filter(counters, (c) => c.id !== e));
   };
@@ -49,31 +47,38 @@ export default function Counters({counters, setCounters}) {
     setCounters(newCounter)
   }
 
-  const handleIncrement = (index) => {
+  const handleIncrement = (i) => {
     let newCounter = [...counters];
-    newCounter[index].value += 1;
+    newCounter[i].value += 1;
     setCounters(newCounter);
   };
 
-  useEffect(() => {
-    if (count) {
-      alert(`${count} times`)
-    }
-  }, [count])
+  const handleDecrement = (index) => {
+    let newCounters = [...counters];
+    newCounters[index].value -= 1;
+    setCounters(newCounters)
+  }
+
+  // useEffect(() => {
+  //   if (count) {
+  //     alert(`${count} times`)
+  //   }
+  // }, [count])
 
   return (
     <div>
       <button onClick={() => handleReset()} type="button" className="btn btn-secondary">
         Reset
       </button>
-      <span>{count}</span>
-      <button onClick={() => setCount(count + 1)}>Change</button>
+      {/* <span>{count}</span>
+      <button onClick={() => setCount(count + 1)}>Change</button> */}
       {_.map(counters, (counter, index) => (
         <Counter
           key={counter.id}
           counter={counter}
           onIncre={() => handleIncrement(index)}
           onDelete={() => handleDelete(counter.id)}
+          onDe={() => handleDecrement(index)}
         ></Counter>
       ))}
     </div>
