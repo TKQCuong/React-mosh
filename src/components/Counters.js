@@ -1,6 +1,7 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Counter from "./Counter";
 import _ from "lodash";
+import Context1 from "./Context1";
 
 // class Counters extends Component {
 //   state = {
@@ -33,8 +34,10 @@ import _ from "lodash";
 // }
 
 // export default Counters;
+export const CounterContext = React.createContext();
 
-export default function Counters({counters, setCounters}) {
+export default function Counters({counters, setCounters, totalValue}) {
+  const [count, setCount] = useState(totalValue)
   const handleDelete = (e) => {
     setCounters(_.filter(counters, (c) => c.id !== e));
   };
@@ -63,15 +66,19 @@ export default function Counters({counters, setCounters}) {
   //   if (count) {
   //     alert(`${count} times`)
   //   }
-  // }, [count])
+  // }) // Empty array: only run 1st time after render; Pass argument: 1st and re-run only if value in array Changes; Not apply array (should not): run by default (1st time & every update)
 
   return (
     <div>
       <button onClick={() => handleReset()} type="button" className="btn btn-secondary">
         Reset
       </button>
-      {/* <span>{count}</span>
-      <button onClick={() => setCount(count + 1)}>Change</button> */}
+      <span>Count: {count}</span>
+
+      <CounterContext.Provider value={{count,setCount}}>
+        <Context1 />
+      </CounterContext.Provider>
+
       {_.map(counters, (counter, index) => (
         <Counter
           key={counter.id}
